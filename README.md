@@ -190,7 +190,7 @@ ArduGazeboSim/
 In VS Code:
 1. Open the command palette (Ctrl+Shift+P)
 2. Select "Remote-Containers: Reopen in Container"
-3. Wait for the container to build and start (first time may take 10-20 minutes)
+3. Wait for the container to build and start (first time may take 10-15 minutes)
 
 ### 6. Install ROS and MAVROS / ROS ve MAVROS Kurulumu
 
