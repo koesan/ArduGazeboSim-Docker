@@ -296,21 +296,7 @@ source ~/.bashrc
 ## Tips and Recommendations / İpuçları ve Öneriler
 
 - **Persistent Environment:** All project files are stored on your host machine. The container can be stopped and restarted without losing your work.
-- **Performance:** For better performance, close unnecessary applications when running simulations.
-- **Multiple Drones:** Use the `-I` flag in `sim_vehicle.py` with different numbers for additional drones (e.g., `-I1`, `-I2`).
-- **Rebuilding:** If you modify the Dockerfile, VS Code will automatically rebuild the container when you reopen it.
+- **Rebuilding:** If you modify the Dockerfile, you can **update the container** by clicking the **`><` icon** in the bottom-left corner of VS Code again and selecting **“Rebuild Container”**. VS Code will automatically rebuild the container with your changes.
 - **GPU Support:** For GPU acceleration, add `"--gpus=all"` to `runArgs` in `devcontainer.json` and install NVIDIA Docker.
-
-## Project Structure / Proje Yapısı
-
-```
-ArduGazeboSim/
-├── .devcontainer/
-│   └── devcontainer.json
-├── Dockerfile
-├── ardupilot/           # ArduPilot source
-└── catkin_ws/           # ROS workspace
-```
-
 
 Happy flying! / İyi uçuşlar! 🚁✨
