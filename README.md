@@ -188,8 +188,8 @@ ArduGazeboSim/
 ### 5. Start the Container / Konteyneri Başlatma
 
 In VS Code:
-1. Open the command palette (Ctrl+Shift+P)
-2. Select "Remote-Containers: Reopen in Container"
+1. Locate the **`><` icon** in the **bottom-left corner** of the VS Code window.
+2. Click it and select **“Reopen in Container”** from the menu.
 3. Wait for the container to build and start (first time may take 10-15 minutes)
 
 ### 6. Install ROS and MAVROS / ROS ve MAVROS Kurulumu
