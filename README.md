@@ -194,7 +194,7 @@ In VS Code:
 
 ### 6. Install ROS and MAVROS / ROS ve MAVROS Kurulumu
 
-Inside the container terminal:
+After the container is built, open a terminal inside VS Code (inside the container) and run the following commands step by step.
 
 ```bash
 # Create catkin workspace
@@ -230,7 +230,7 @@ source ~/.bashrc
 
 ### 7. Install ArduPilot / ArduPilot Kurulumu
 
-Inside the container terminal:
+In the same terminal inside VS Code, run the following commands to clone and build ArduPilot.
 
 ```bash
 # Clone ArduPilot
@@ -247,7 +247,7 @@ source ~/.bashrc
 
 ### 8. Install ArduPilot Gazebo Plugin / ArduPilot Gazebo Eklentisi Kurulumu
 
-Inside the container terminal:
+In the same terminal inside VS Code, run the following commands to clone and build ArduPilot.
 
 ```bash
 # Clone and build the plugin
@@ -270,38 +270,28 @@ source ~/.bashrc
 ### Running the Simulation / Simülasyonu Çalıştırma
 
 1. **Terminal 1 - Start Gazebo and ROS:**
+   
+   > Open a **new terminal inside VS Code** (inside the container) to start the simulation environment. Then run:
+   
    ```bash
    source ~/.bashrc
    roslaunch iq_sim multi_drone.launch
    ```
 
-2. **Terminal 2 - Start ArduCopter SITL:**
+4. **Terminal 2 - Start ArduCopter SITL:**
+
+   > Open **another new terminal inside VS Code** for ArduPilot connection. This terminal will handle drone SITL simulation:
+   
    ```bash
    cd /home/user/drone_project/ardupilot
    sim_vehicle.py -v ArduCopter -f gazebo-iris --console --map -I0
    ```
 
-### Customization / Özelleştirme
+> **Note:** After completing the simulation setup, you can:
+>
+> * Use the container to **start your own projects** inside VS Code.
+> * Open a **new terminal** inside the container to run Python scripts, test ROS nodes, or start additional simulations.
 
-- **Change Models:** Modify `.sdf` files in:
-  - `~/drone_project/catkin_ws/src/iq_sim/models`
-  - `~/drone_project/ardupilot/ardupilot_gazebo_classic/models`
-
-- **Add Camera Sensors:** Add to drone model `.sdf`:
-  ```xml
-  <sensor type="camera" name="camera_sensor">
-    <pose>0 0 0 0 0 0</pose>
-    <camera>
-      <horizontal_fov>1.047</horizontal_fov>
-      <image>
-        <width>640</width>
-        <height>480</height>
-      </image>
-    </camera>
-  </sensor>
-  ```
-
-- **Network Configuration:** Ports are forwarded via `--net=host`. For custom ports, modify `forwardPorts` in `devcontainer.json`.
 
 ## Tips and Recommendations / İpuçları ve Öneriler
 
@@ -319,37 +309,8 @@ ArduGazeboSim/
 │   └── devcontainer.json
 ├── Dockerfile
 ├── ardupilot/           # ArduPilot source
-├── catkin_ws/           # ROS workspace
-└── README.md
+└── catkin_ws/           # ROS workspace
 ```
 
-## Contributing / Katkıda Bulunma
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## License / Lisans
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Acknowledgments / Teşekkür
-
-- [ArduPilot](https://ardupilot.org/) for the amazing autopilot software
-- [ROS](https://www.ros.org/) for the robotics framework
-- [Gazebo](https://gazebosim.org/) for the simulation environment
-- [Intelligent-Quads](https://github.com/Intelligent-Quads) for the IQ Sim package
-- [Docker](https://www.docker.com/) for containerization technology
-- [VS Code](https://code.visualstudio.com/) for the development environment
-
----
-
-**English:** For questions or support, please open an issue on GitHub.
-
-**Türkçe:** Sorularınız veya destek için lütfen GitHub'da bir issue oluşturun.
 
 Happy flying! / İyi uçuşlar! 🚁✨
