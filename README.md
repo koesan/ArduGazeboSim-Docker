@@ -23,7 +23,7 @@
 ## Prerequisites / Ön Gereksinimler
 
 - Docker and Docker Compose
-- VS Code with Docker and Remote - Containers extensions
+- VS Code with Docker, Dev Containers and Remote - Containers extensions
 - Sufficient disk space (~10GB for initial setup)
 
 ## Installation / Kurulum
