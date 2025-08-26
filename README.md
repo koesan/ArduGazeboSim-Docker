@@ -30,6 +30,8 @@
 
 ### 1. Host Machine Preparation / Ana Makine Hazırlığı
 
+#### 🟢 Ubuntu / Debian
+
 ```bash
 # Install Docker and Docker Compose
 sudo apt update
@@ -40,11 +42,66 @@ sudo systemctl enable --now docker
 sudo usermod -aG docker $USER
 
 # Install VS Code extensions
-# Install: Docker, Remote - Containers
+# Install: Docker,Dev Containers and Remote - Containers
 
 # Allow X11 forwarding for GUI applications
 xhost +local:
+
+# Allow Wayland socket access for GUI applications
+xhost +SI:localuser:$USER
 ```
+
+---
+
+#### 🔵 Arch Linux
+
+```bash
+# Install Docker and Docker Compose
+sudo pacman -Syu --noconfirm
+sudo pacman -S --noconfirm docker docker-compose
+
+# Enable and start Docker service
+sudo systemctl enable --now docker
+
+# Add user to docker group (logout and login after this)
+sudo usermod -aG docker $USER
+
+# Install VS Code extensions
+# Install: Docker,Dev Containers and Remote - Containers
+
+# Allow X11 forwarding for GUI applications
+xhost +local:
+
+# Allow Wayland socket access for GUI applications
+xhost +SI:localuser:$USER
+```
+
+---
+
+#### 🟠 Fedora
+
+```bash
+# Install Docker and Docker Compose
+sudo dnf -y update
+sudo dnf -y install docker docker-compose
+
+# Enable and start Docker service
+sudo systemctl enable --now docker
+
+# Add user to docker group (logout and login after this)
+sudo usermod -aG docker $USER
+
+# Install VS Code extensions
+# Install: Docker,Dev Containers and Remote - Containers
+
+# Allow X11 forwarding for GUI applications
+xhost +local:
+
+# Allow Wayland socket access for GUI applications
+xhost +SI:localuser:$USER
+```
+
+---
 
 ### 2. Project Setup / Proje Kurulumu
 
