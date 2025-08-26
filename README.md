@@ -172,6 +172,24 @@ Create `.devcontainer/devcontainer.json`:
   ]
 }
 ```
+### 📂 Project Folder Structure
+
+```
+ArduGazeboSim/
+├── .devcontainer/                  # VS Code Dev Container settings
+│   └── devcontainer.json           # References the Dockerfile for container setup
+│
+├── Dockerfile                      # Main Dockerfile for the development environment
+│
+....
+│   (your project files go here)
+```
+
+💡 **Notes:**
+
+* The top part shows the **environment setup** (`Dockerfile` + `.devcontainer/`)
+* The `....` section represents **all your future project files** like ROS workspace, ArduPilot source, scripts, etc.
+* This way it’s visually clear in the README how the project structure is organized, without listing every internal folder.
 
 ### 5. Start the Container / Konteyneri Başlatma
 
