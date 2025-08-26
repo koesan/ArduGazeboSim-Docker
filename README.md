@@ -22,7 +22,6 @@
 
 ## Prerequisites / Ön Gereksinimler
 
-- Ubuntu 20.04 (recommended)
 - Docker and Docker Compose
 - VS Code with Docker and Remote - Containers extensions
 - Sufficient disk space (~10GB for initial setup)
