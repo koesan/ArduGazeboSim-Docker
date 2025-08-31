@@ -200,6 +200,24 @@ In VS Code:
 
 ### 6. Install ROS and MAVROS / ROS ve MAVROS Kurulumu
 
+Instead of performing all installations manually, you can run the **setup\_simulation.sh** script prepared inside the Docker container. This will automatically install all dependencies.
+
+#### Steps to Run:
+
+1. Make the script executable inside the Docker container:
+
+```bash
+chmod +x setup_simulation.sh
+```
+
+2. Start the script:
+
+```bash
+/home/user/drone_project/setup_simulation.sh
+```
+
+#### Manual Seting
+
 After the container is built, open a terminal inside VS Code (inside the container) and run the following commands step by step.
 
 ```bash
