@@ -133,6 +133,9 @@ RUN apt-get update && apt-get install -y \
 # Install Python packages
 RUN pip3 install --no-cache-dir future lxml pymavlink MAVProxy osrf-pycommon empy
 
+# Ekran kartı için yorum satırını kaldırın
+# apt-get update && apt-get install -y mesa-utils
+
 # Create project directory
 RUN mkdir -p /home/user/drone_project
 WORKDIR /home/user/drone_project
@@ -165,10 +168,13 @@ Create `.devcontainer/devcontainer.json`:
     "source=${localWorkspaceFolder},target=/home/user/drone_project,type=bind"
   ],
   "runArgs": [
+    // Ekran kartı için yorum satırlarını kaldırın.
+    //"--gpus=all",
     "--net=host",
     "--env=DISPLAY=${env:DISPLAY}",
     "--env=QT_X11_NO_MITSHM=1",
-    "--volume=/tmp/.X11-unix:/tmp/.X11-unix:rw"
+    "--volume=/tmp/.X11-unix:/tmp/.X11-unix:rw",
+    //"--device=/dev/dri:/dev/dri"
   ]
 }
 ```
