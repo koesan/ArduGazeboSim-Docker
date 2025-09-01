@@ -128,6 +128,8 @@ RUN apt-get update && apt-get install -y \
     python3-rosinstall-generator python3-catkin-lint python3-catkin-tools \
     ros-noetic-geographic-msgs \
     gazebo11 libgazebo11-dev \
+    python3-matplotlib \
+    python3-wxgtk4.0 \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Python packages
