@@ -120,7 +120,8 @@ Create a `Dockerfile` in the project root:
 FROM osrf/ros:noetic-desktop-full
 
 # Install system dependencies
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y \
     git wget curl nano cmake build-essential \
     python3-dev python3-pip python3-setuptools python3-wheel \
     python3-matplotlib python3-numpy python3-pandas python3-scipy \
@@ -128,8 +129,6 @@ RUN apt-get update && apt-get install -y \
     python3-rosinstall-generator python3-catkin-lint python3-catkin-tools \
     ros-noetic-geographic-msgs \
     gazebo11 libgazebo11-dev \
-    python3-matplotlib \
-    python3-wxgtk4.0 \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Python packages
