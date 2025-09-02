@@ -218,6 +218,14 @@ chmod +x setup_simulation.sh
 /home/user/drone_project/setup_simulation.sh
 ```
 
+> **Note:** If you get errors like `PreArm: Main loop slow` or `Arm: COMPONENT_ARM_DISARM: FAILED`, run this in the same terminal as SITL:
+>
+> ```bash
+> param set ARMING_CHECK 0
+> ```
+>
+> This disables pre-arm checks for simulation.
+
 #### Manual Seting
 
 After the container is built, open a terminal inside VS Code (inside the container) and run the following commands step by step.
