@@ -59,6 +59,7 @@ xhost +SI:localuser:$USER
 # Install Docker and Docker Compose
 sudo pacman -Syu --noconfirm
 sudo pacman -S --noconfirm docker docker-compose
+sudo pacman -S nvidia-container-toolkit
 
 # Enable and start Docker service
 sudo systemctl enable --now docker
