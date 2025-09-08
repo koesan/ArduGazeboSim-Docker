@@ -33,22 +33,30 @@
 #### 🟢 Ubuntu / Debian
 
 ```bash
-# Install Docker and Docker Compose
-sudo apt update
-sudo apt install -y docker.io docker-compose
-sudo systemctl enable --now docker
-sudo apt install docker-buildx
+# Update system
+sudo apt update && sudo apt upgrade -y
 
-# Add user to docker group (logout and login after this)
+# Install Docker and Docker Compose
+sudo apt install -y docker.io docker-compose docker-buildx-plugin
+
+# Enable and start Docker
+sudo systemctl enable --now docker
+
+# Add user to docker group (logout and login required)
 sudo usermod -aG docker $USER
 
-# Install VS Code extensions
-# Install: Docker,Dev Containers and Remote - Containers
+# Install NVIDIA Container Toolkit
+distribution=$(. /etc/os-release;echo $ID$VERSION_ID) \
+  && curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add - \
+  && curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+
+sudo apt update
+sudo apt install -y nvidia-container-toolkit
+sudo nvidia-ctk runtime configure --runtime=docker
+sudo systemctl restart docker
 
 # Allow X11 forwarding for GUI applications
 xhost +local:
-
-# Allow Wayland socket access for GUI applications
 xhost +SI:localuser:$USER
 ```
 
@@ -57,25 +65,25 @@ xhost +SI:localuser:$USER
 #### 🔵 Arch Linux
 
 ```bash
-# Install Docker and Docker Compose
+# Update system
 sudo pacman -Syu --noconfirm
-sudo pacman -S --noconfirm docker docker-compose
-sudo pacman -S nvidia-container-toolkit
-sudo pacman -Syu docker-buildx
 
-# Enable and start Docker service
+# Install Docker and Docker Compose
+sudo pacman -S --noconfirm docker docker-compose docker-buildx
+
+# Enable and start Docker
 sudo systemctl enable --now docker
 
-# Add user to docker group (logout and login after this)
+# Add user to docker group (logout and login required)
 sudo usermod -aG docker $USER
 
-# Install VS Code extensions
-# Install: Docker,Dev Containers and Remote - Containers
+# Install NVIDIA Container Toolkit
+yay -S --noconfirm nvidia-container-toolkit
+sudo nvidia-ctk runtime configure --runtime=docker
+sudo systemctl restart docker
 
 # Allow X11 forwarding for GUI applications
 xhost +local:
-
-# Allow Wayland socket access for GUI applications
 xhost +SI:localuser:$USER
 ```
 
@@ -84,24 +92,30 @@ xhost +SI:localuser:$USER
 #### 🟠 Fedora
 
 ```bash
-# Install Docker and Docker Compose
+# Update system
 sudo dnf -y update
-sudo dnf -y install docker docker-compose
-sudo dnf -y install docker-buildx
 
-# Enable and start Docker service
+# Install Docker and Docker Compose
+sudo dnf -y install docker docker-compose docker-buildx
+
+# Enable and start Docker
 sudo systemctl enable --now docker
 
-# Add user to docker group (logout and login after this)
+# Add user to docker group (logout and login required)
 sudo usermod -aG docker $USER
 
-# Install VS Code extensions
-# Install: Docker,Dev Containers and Remote - Containers
+# Install NVIDIA Container Toolkit
+distribution=$(. /etc/os-release;echo $ID$VERSION_ID) \
+  && curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo rpm --import - \
+  && curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/yum.repos.d/nvidia-container-toolkit.repo
+
+sudo dnf -y clean expire-cache
+sudo dnf -y install nvidia-container-toolkit
+sudo nvidia-ctk runtime configure --runtime=docker
+sudo systemctl restart docker
 
 # Allow X11 forwarding for GUI applications
 xhost +local:
-
-# Allow Wayland socket access for GUI applications
 xhost +SI:localuser:$USER
 ```
 
