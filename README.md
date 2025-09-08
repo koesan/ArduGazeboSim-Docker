@@ -37,6 +37,7 @@
 sudo apt update
 sudo apt install -y docker.io docker-compose
 sudo systemctl enable --now docker
+sudo apt install docker-buildx
 
 # Add user to docker group (logout and login after this)
 sudo usermod -aG docker $USER
@@ -60,6 +61,7 @@ xhost +SI:localuser:$USER
 sudo pacman -Syu --noconfirm
 sudo pacman -S --noconfirm docker docker-compose
 sudo pacman -S nvidia-container-toolkit
+sudo pacman -Syu docker-buildx
 
 # Enable and start Docker service
 sudo systemctl enable --now docker
@@ -85,6 +87,7 @@ xhost +SI:localuser:$USER
 # Install Docker and Docker Compose
 sudo dnf -y update
 sudo dnf -y install docker docker-compose
+sudo dnf -y install docker-buildx
 
 # Enable and start Docker service
 sudo systemctl enable --now docker
