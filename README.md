@@ -10,8 +10,6 @@
 [![MAVLink](https://img.shields.io/badge/mavlink-supported-red.svg)](https://mavlink.io/en/)
 [![MAVROS](https://img.shields.io/badge/mavros-integration-blueviolet.svg)](http://wiki.ros.org/mavros)
 
----
-
 🎥 **Demo Video**  
 [![Watch the video](https://img.youtube.com/vi/CIGGLXief54/0.jpg)](https://youtu.be/CIGGLXief54)
 
