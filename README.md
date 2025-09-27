@@ -57,7 +57,6 @@ sudo systemctl restart docker
 
 # Allow X11 forwarding for GUI applications
 xhost +local:
-xhost +SI:localuser:$USER
 ```
 
 ---
@@ -84,7 +83,6 @@ sudo systemctl restart docker
 
 # Allow X11 forwarding for GUI applications
 xhost +local:
-xhost +SI:localuser:$USER
 ```
 
 ---
@@ -116,7 +114,6 @@ sudo systemctl restart docker
 
 # Allow X11 forwarding for GUI applications
 xhost +local:
-xhost +SI:localuser:$USER
 ```
 
 ---
@@ -233,7 +230,7 @@ chmod +x setup_simulation.sh
 2. Start the script:
 
 ```bash
-/home/user/drone_project/setup_simulation.sh
+./setup_simulation.sh
 ```
 
 > **Note:** If you get errors like `PreArm: Main loop slow` or `Arm: COMPONENT_ARM_DISARM: FAILED`, run this in the same terminal as SITL:
