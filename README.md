@@ -5,7 +5,10 @@
 [![Docker](https://img.shields.io/badge/docker-supported-blue.svg)](https://www.docker.com/)
 [![VS Code](https://img.shields.io/badge/vscode-devcontainer-green.svg)](https://code.visualstudio.com/)
 [![ROS](https://img.shields.io/badge/ros-noetic-34a853.svg)](http://wiki.ros.org/noetic)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Gazebo](https://img.shields.io/badge/gazebo-11-orange.svg)](http://gazebosim.org/)
+[![ArduPilot](https://img.shields.io/badge/ardupilot-SITL-yellow.svg)](https://ardupilot.org/)
+[![MAVLink](https://img.shields.io/badge/mavlink-supported-red.svg)](https://mavlink.io/en/)
+[![MAVROS](https://img.shields.io/badge/mavros-integration-blueviolet.svg)](http://wiki.ros.org/mavros)
 
 ---
 
