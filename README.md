@@ -195,11 +195,11 @@ Create `.devcontainer/devcontainer.json`:
   "runArgs": [
     // Ekran kartı için yorum satırlarını kaldırın.
     //"--gpus=all",
+    //"--device=/dev/dri:/dev/dri"
     "--net=host",
     "--env=DISPLAY=${env:DISPLAY}",
     "--env=QT_X11_NO_MITSHM=1",
     "--volume=/tmp/.X11-unix:/tmp/.X11-unix:rw",
-    //"--device=/dev/dri:/dev/dri"
   ]
 }
 ```
