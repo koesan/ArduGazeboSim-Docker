@@ -201,7 +201,7 @@ Create `.devcontainer/devcontainer.json`:
   "runArgs": [
     // Uncomment for GPU support
     //"--gpus=all",
-    //"--device=/dev/dri:/dev/dri"
+    //"--device=/dev/dri:/dev/dri",
     "--net=host",
     "--env=DISPLAY=${env:DISPLAY}",
     "--env=QT_X11_NO_MITSHM=1",
@@ -548,7 +548,7 @@ CMD ["/bin/bash"]
   "runArgs": [
     // Ekran kartı için yorum satırlarını kaldırın.
     //"--gpus=all",
-    //"--device=/dev/dri:/dev/dri"
+    //"--device=/dev/dri:/dev/dri",
     "--net=host",
     "--env=DISPLAY=${env:DISPLAY}",
     "--env=QT_X11_NO_MITSHM=1",
