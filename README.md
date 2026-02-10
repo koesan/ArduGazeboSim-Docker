@@ -130,6 +130,11 @@ sudo systemctl restart docker
 xhost +local:
 ```
 
+> [!WARNING]
+> **Important:** The `xhost +local:` command is not persistent. You must run this command **every time you restart your computer**.
+>
+> Otherwise, GUI applications like **Gazebo** will **fail to open and throw errors.**
+
 ---
 
 ### 2. Project Setup
@@ -476,6 +481,11 @@ sudo systemctl restart docker
 # GUI uygulamaları için X11 yönlendirmeye izin ver
 xhost +local:
 ```
+
+> [!WARNING]
+> **Önemli:** `xhost +local:` komutu kalıcı değildir. Bilgisayarınızı **her yeniden başlattığınızda** bu komutu tekrar çalıştırmanız gerekmektedir.
+>
+> Aksi takdirde **Gazebo** gibi grafik arayüz (GUI) gerektiren uygulamalar **açılmayacak ve hata verecektir.**
 
 ---
 
