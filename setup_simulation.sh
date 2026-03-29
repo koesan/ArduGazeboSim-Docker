@@ -9,7 +9,7 @@ echo "===== Starting ArduGazeboSim setup ====="
 echo "Updating apt and installing dependencies..."
 apt-get update
 
-# List of system packages
+# List of system packages (EKSİKLER GİDERİLDİ: AMD ve NVIDIA hibrit köprü paketleri eklendi)
 packages=(
   git wget curl nano cmake build-essential
   python3-dev python3-pip python3-setuptools python3-wheel
@@ -17,7 +17,7 @@ packages=(
   python3-sqlalchemy python3-pexpect python3-wstool
   python3-rosinstall-generator python3-catkin-lint python3-catkin-tools
   ros-noetic-geographic-msgs gazebo11 libgazebo11-dev
-  software-properties-common
+  software-properties-common mesa-utils libgl1-mesa-glx libgl1-mesa-dri
 )
 
 for pkg in "${packages[@]}"; do
@@ -72,10 +72,12 @@ else
 fi
 
 echo "Installing ROS dependencies..."
+# HATA ÖNLEME: rosdep update öncesi init yapılmalı
+rosdep init || true 
 rosdep update
 rosdep install --from-paths . --ignore-src --rosdistro noetic -y
 
-# Clone IQ Simulation package
+# Clone IQ Simulation package (KAMERALARA DOKUNULMADI - YOLO İÇİN AKTİF)
 if [ ! -d "$SRC_DIR/iq_sim" ]; then
     git clone https://github.com/Intelligent-Quads/iq_sim.git
 else
@@ -134,12 +136,15 @@ echo "export GAZEBO_MODEL_PATH=\$GAZEBO_MODEL_PATH:$PLUGIN_DIR/models" >> ~/.bas
 source ~/.bashrc
 
 # -------------------------------
-# 6. AMD GPU Check
+# 6. NVIDIA GPU Check
 # -------------------------------
-if [ -c /dev/dri/renderD128 ]; then
-    echo "AMD GPU detected at /dev/dri/renderD128"
+echo "Checking GPU configuration..."
+if command -v nvidia-smi &> /dev/null; then
+    echo "NVIDIA GPU detected and accessible inside the container!"
+    nvidia-smi | grep "Driver Version"
 else
-    echo "Warning: AMD GPU not detected. Simulation may run on CPU (llvmpipe)."
+    echo "Warning: NVIDIA GPU not detected by nvidia-smi."
+    echo "Simulation may run on CPU (llvmpipe). Please check your Docker --gpus parameter and NVIDIA Container Toolkit."
 fi
 
 echo "===== ArduGazeboSim setup completed successfully! ====="
