@@ -153,7 +153,14 @@ Create a `Dockerfile` in the project root:
 ```dockerfile
 FROM osrf/ros:noetic-desktop-full
 
+# NVIDIA Ekran Kartı Grafik Yetkilerini Aç (Ağır Yük İçin)
+ENV NVIDIA_VISIBLE_DEVICES \
+    ${NVIDIA_VISIBLE_DEVICES:-all}
+ENV NVIDIA_DRIVER_CAPABILITIES \
+    ${NVIDIA_DRIVER_CAPABILITIES:+$NVIDIA_DRIVER_CAPABILITIES,}graphics,compute,utility
+
 # Install system dependencies
+# EKLENEN KRİTİK PAKETLER: libgl1-mesa-glx libgl1-mesa-dri (AMD Görüntü Köprüsü İçin)
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y \
     git wget curl nano cmake build-essential \
@@ -164,13 +171,11 @@ RUN apt-get update && \
     ros-noetic-geographic-msgs \
     gazebo11 libgazebo11-dev \
     python3-wxgtk4.0 \
+    mesa-utils libgl1-mesa-glx libgl1-mesa-dri \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Python packages
 RUN pip3 install --no-cache-dir future lxml pymavlink MAVProxy osrf-pycommon empy
-
-# Uncomment for GPU support
-# apt-get update && apt-get install -y mesa-utils
 
 # Create project directory
 RUN mkdir -p /home/user/drone_project
@@ -204,13 +209,38 @@ Create `.devcontainer/devcontainer.json`:
     "source=${localWorkspaceFolder},target=/home/user/drone_project,type=bind"
   ],
   "runArgs": [
-    // Uncomment for GPU support
-    //"--gpus=all",
-    //"--device=/dev/dri:/dev/dri",
+    // =================================================================
+    // CORE DISPLAY & NETWORK SETTINGS (KEEP THESE ACTIVE FOR ALL SYSTEMS)
+    // =================================================================
     "--net=host",
     "--env=DISPLAY=${env:DISPLAY}",
     "--env=QT_X11_NO_MITSHM=1",
     "--volume=/tmp/.X11-unix:/tmp/.X11-unix:rw",
+
+    // =================================================================
+    // SCENARIO 1: HYBRID SYSTEMS (Laptops: NVIDIA + AMD/Intel Integrated)
+    // This is the currently active profile. NVIDIA renders, AMD displays.
+    // If you switch to another profile, put // at the beginning of these 4 lines.
+    // =================================================================
+    "--gpus=all",
+    "--device=/dev/dri:/dev/dri",
+    "--env=__NV_PRIME_RENDER_OFFLOAD=1", 
+    "--env=__GLX_VENDOR_LIBRARY_NAME=nvidia"
+
+    // =================================================================
+    // SCENARIO 2: DEDICATED NVIDIA GPU ONLY (Desktop PCs)
+    // For systems without an integrated GPU (No AMD/Intel APU).
+    // To use this, remove the // from the line below.
+    // (Remember to comment out Scenario 1, and add a comma to the last active line above)
+    // =================================================================
+    // "--gpus=all"
+
+    // =================================================================
+    // SCENARIO 3: INTEGRATED GPU ONLY (No NVIDIA - Just Intel/AMD)
+    // For standard laptops or PCs without a dedicated graphics card.
+    // To use this, remove the // from the line below.
+    // =================================================================
+    // "--device=/dev/dri:/dev/dri"
   ]
 }
 ```
@@ -505,7 +535,14 @@ Proje kök dizininde bir `Dockerfile` oluşturun:
 ```dockerfile
 FROM osrf/ros:noetic-desktop-full
 
-# Sistem bağımlılıklarını kur
+# NVIDIA Ekran Kartı Grafik Yetkilerini Aç (Ağır Yük İçin)
+ENV NVIDIA_VISIBLE_DEVICES \
+    ${NVIDIA_VISIBLE_DEVICES:-all}
+ENV NVIDIA_DRIVER_CAPABILITIES \
+    ${NVIDIA_DRIVER_CAPABILITIES:+$NVIDIA_DRIVER_CAPABILITIES,}graphics,compute,utility
+
+# Install system dependencies
+# EKLENEN KRİTİK PAKETLER: libgl1-mesa-glx libgl1-mesa-dri (AMD Görüntü Köprüsü İçin)
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y \
     git wget curl nano cmake build-essential \
@@ -516,19 +553,17 @@ RUN apt-get update && \
     ros-noetic-geographic-msgs \
     gazebo11 libgazebo11-dev \
     python3-wxgtk4.0 \
+    mesa-utils libgl1-mesa-glx libgl1-mesa-dri \
     && rm -rf /var/lib/apt/lists/*
 
-# Python paketlerini kur
+# Install Python packages
 RUN pip3 install --no-cache-dir future lxml pymavlink MAVProxy osrf-pycommon empy
 
-# Ekran kartı için yorum satırını kaldırın
-# apt-get update && apt-get install -y mesa-utils
-
-# Proje dizini oluştur
+# Create project directory
 RUN mkdir -p /home/user/drone_project
 WORKDIR /home/user/drone_project
 
-# ArduPilot araçları için PATH ayarla
+# Set PATH for ArduPilot tools
 ENV PATH="/home/user/drone_project/ardupilot:/home/user/drone_project/ardupilot/Tools/autotest:${PATH}"
 
 CMD ["/bin/bash"]
@@ -556,13 +591,38 @@ CMD ["/bin/bash"]
     "source=${localWorkspaceFolder},target=/home/user/drone_project,type=bind"
   ],
   "runArgs": [
-    // Ekran kartı için yorum satırlarını kaldırın.
-    //"--gpus=all",
-    //"--device=/dev/dri:/dev/dri",
+    // =================================================================
+    // CORE DISPLAY & NETWORK SETTINGS (KEEP THESE ACTIVE FOR ALL SYSTEMS)
+    // =================================================================
     "--net=host",
     "--env=DISPLAY=${env:DISPLAY}",
     "--env=QT_X11_NO_MITSHM=1",
     "--volume=/tmp/.X11-unix:/tmp/.X11-unix:rw",
+
+    // =================================================================
+    // SCENARIO 1: HYBRID SYSTEMS (Laptops: NVIDIA + AMD/Intel Integrated)
+    // This is the currently active profile. NVIDIA renders, AMD displays.
+    // If you switch to another profile, put // at the beginning of these 4 lines.
+    // =================================================================
+    "--gpus=all",
+    "--device=/dev/dri:/dev/dri",
+    "--env=__NV_PRIME_RENDER_OFFLOAD=1", 
+    "--env=__GLX_VENDOR_LIBRARY_NAME=nvidia"
+
+    // =================================================================
+    // SCENARIO 2: DEDICATED NVIDIA GPU ONLY (Desktop PCs)
+    // For systems without an integrated GPU (No AMD/Intel APU).
+    // To use this, remove the // from the line below.
+    // (Remember to comment out Scenario 1, and add a comma to the last active line above)
+    // =================================================================
+    // "--gpus=all"
+
+    // =================================================================
+    // SCENARIO 3: INTEGRATED GPU ONLY (No NVIDIA - Just Intel/AMD)
+    // For standard laptops or PCs without a dedicated graphics card.
+    // To use this, remove the // from the line below.
+    // =================================================================
+    // "--device=/dev/dri:/dev/dri"
   ]
 }
 ```
