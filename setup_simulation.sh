@@ -7,7 +7,10 @@ echo "===== Starting ArduGazeboSim setup ====="
 # 1. Update apt and install dependencies
 # -------------------------------
 echo "Updating apt and installing dependencies..."
+# 🔧 CRITICAL FIX: python command compatibility (ROS + ArduPilot tools)
 apt-get update
+apt-get install -y python-is-python3
+ln -sf /usr/bin/python3 /usr/bin/python
 
 # List of system packages (EKSİKLER GİDERİLDİ: AMD ve NVIDIA hibrit köprü paketleri eklendi)
 packages=(
@@ -94,7 +97,7 @@ echo "source $WORKSPACE_DIR/devel/setup.bash" >> ~/.bashrc
 source ~/.bashrc
 
 # -------------------------------
-# 4. Clone and build ArduPilot
+# 4. Clone and build ArduPilot (STABLE FIXED VERSION)
 # -------------------------------
 DRONE_DIR="/home/user/drone_project/ardupilot"
 mkdir -p "$DRONE_DIR"
@@ -103,11 +106,15 @@ cd /home/user/drone_project
 if [ ! -d "$DRONE_DIR/.git" ]; then
     echo "Cloning ArduPilot..."
     git clone --recurse-submodules https://github.com/ArduPilot/ardupilot.git
-else
-    echo "ArduPilot already cloned."
 fi
 
 cd "$DRONE_DIR"
+
+# 🔥 CRITICAL FIX: stabilize version for Python 3.8 / ROS Noetic
+git fetch --all --tags
+git checkout Copter-4.4
+git submodule update --init --recursive
+
 ./waf configure --board sitl
 ./waf copter
 
